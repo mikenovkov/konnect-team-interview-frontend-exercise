@@ -159,3 +159,43 @@ yarn commit
 ```
 
 This will trigger the Commitizen interactive prompt for building your commit message.
+
+
+### Notes
+
+What I have Added:
+
+Responsive:
+
+Main header:
+  Shows hamburger menu instead of menu 
+
+Services List:
+  Two columns for smaller screens or tablets
+  One column for mobile
+  Service catalog header layout changes for mobile version
+   - width of elements
+   - column layout
+
+Service Details page:
+  - Item layout changes to columns
+  - gap updated
+
+
+What I have added with usability and UX considerations:
+
+ - Results counter at the top of list to show the user number of results earlier on the page ( only place on designs is in pagination at the bottom )
+ - Hover state to service cards 
+ - Hover state to pagination prev and next buttons
+ - Spinner while services are loading
+ - Back button to details page - reusable component with option of named route if passed by a prop or previous page
+ - Template if no details for service on details page, it can be a reusable component with text and a CTA
+ - Service type highlighted according to active type
+ - Modal opens on add service package button
+ - theme folder and global styles file 
+
+
+Considerations:
+  - Use font sizes at least 16px. implemented by designs some 12px and 13px
+  - Avoid using opacity on texts, considering contrast ratio
+  - adding variables file for styling

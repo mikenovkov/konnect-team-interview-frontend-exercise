@@ -1,26 +1,32 @@
-import { ref, onBeforeMount } from 'vue'
+import { ref, Ref, onBeforeMount } from 'vue'
 import axios from 'axios'
 
-// This composable is a simplified example for the exercise.
-// Feel free to leave as-is, modify, or remove this file (and any others) as desired.
-// https://vuejs.org/guide/reusability/composables.html
+type GetServiceFunction = (serviceId: string) => string | undefined;
 
-export default function useServices(): any {
-  const services = ref<any[]>([])
-  const loading = ref<any>(false)
+interface useServices {
+  getServices: () => Promise<void>;
+  services: Ref<any[]>;
+  loading: Ref<boolean>;
+  getService: GetServiceFunction;
+}
 
-  const getServices = async (): Promise<any> => {
+export default function useServices(): useServices {
+  const services = ref([])
+  const loading = ref(false)
+
+  const getServices = async () => {
     // Initialize loading state
     loading.value = true
-
-    // Fetch data from the API
-    const result = await axios.get('/api/services')
-
-    // Store data in Vue ref
-    services.value = result.data
-
-    // Reset loading state
-    loading.value = false
+    try {
+      // Fetch data from the API
+      const result = await axios.get('/api/services')
+      services.value = result.data
+    } catch (e) {
+      console.error('Failed to load services.', e)
+    } finally {
+      // Reset loading state
+      loading.value = false
+    }
   }
 
   onBeforeMount(async (): Promise<void> => {
@@ -28,8 +34,12 @@ export default function useServices(): any {
     await getServices()
   })
 
+  const getService: GetServiceFunction = (serviceId: string) => services.value.find((service: any) => serviceId === service.id)
+
   // Return stateful data
   return {
+    getServices,
+    getService,
     services,
     loading,
   }

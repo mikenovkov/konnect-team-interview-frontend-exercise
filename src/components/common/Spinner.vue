@@ -1,17 +1,17 @@
 <template>
-  <div class="loader" />
+  <div class="spinner" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Loader',
+  name: 'Spinner',
 })
 </script>
 
 <style lang="scss" scoped>
-    .loader {
+    .spinner {
         position: relative;
         width: 30px;
         height: 30px;
